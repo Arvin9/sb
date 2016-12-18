@@ -4,6 +4,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 import site.nebulas.dao.UserDao;
 import site.nebulas.entity.User;
+import site.nebulas.service.UserService;
 
 import javax.persistence.criteria.CriteriaBuilder;
 import java.util.List;
@@ -15,6 +16,8 @@ import java.util.List;
 public class UserController {
     @Autowired
     private UserDao userDao;
+    @Autowired
+    private UserService userService;
 
     /**
      * 查询所有用户列表
@@ -72,5 +75,13 @@ public class UserController {
     @GetMapping(value = "/users/username/{username}")
     public List<User> userListByName(@PathVariable("username") String username){
         return userDao.findByUsername(username);
+    }
+
+    /**
+     * 添加一个用户
+     * */
+    @PostMapping(value = "/users/tow")
+    public void userTow(){
+        userService.insertTow();
     }
 }
